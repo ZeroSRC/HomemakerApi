@@ -18,7 +18,6 @@ const jwt = require('jsonwebtoken');
 const secret = "data-secret";
 const connection = mysql.createConnection('mysql://xyhom6qt51962lmtc64y:pscale_pw_6Vc97hFvnBDrnXedxA3v09ACIIv3p5GuHmD9HLaoRNm@aws.connect.psdb.cloud/homemaker?ssl={"rejectUnauthorized":true}');
 app.use(cors())
-
 app.get('/services', function (req, res, next) {
   connection.query('SELECT * FROM service WHERE serviceID',
     function (err, results) {
