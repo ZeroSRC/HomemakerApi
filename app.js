@@ -16,7 +16,16 @@ const saltRounds = 10;
 // ทำ Token สำหรับ login ด้วย Jsonwebtoken
 const jwt = require('jsonwebtoken');
 const secret = "data-secret";
-const connection = mysql.createConnection(process.env.DATABASE_URL);
+const connection = mysql.createConnection({
+  host: 'aws.connect.psdb.cloud',
+  user: 'xyhom6qt51962lmtc64y',
+  password: 'pscale_pw_6Vc97hFvnBDrnXedxA3v09ACIIv3p5GuHmD9HLaoRNm',
+  database: 'homemaker',
+  port: 3306, // MySQL default port
+  ssl: {
+    rejectUnauthorized: true
+  }
+});
 app.use(cors())
 
 app.get('/services', function (req, res, next) {
@@ -392,4 +401,4 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 // รันบน port
-app.listen(process.env.PORT || 80);
+app.listen(process.env.PORT || 3333);
