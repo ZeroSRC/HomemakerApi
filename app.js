@@ -16,7 +16,17 @@ const saltRounds = 10;
 // ทำ Token สำหรับ login ด้วย Jsonwebtoken
 const jwt = require('jsonwebtoken');
 const secret = "data-secret";
-const connection = mysql.createConnection('mysql://6t3wy77ncvkdjq6be08i:pscale_pw_zv729rLKWdWTm2KbcorMwqkOJ5T8LpAgxbupzJkeYK5@aws.connect.psdb.cloud/homemaker?ssl={"rejectUnauthorized":true}');
+const connection = mysql.createConnection({
+  host: 'aws.connect.psdb.cloud',
+  user: '6t3wy77ncvkdjq6be08i',
+  password: 'pscale_pw_zv729rLKWdWTm2KbcorMwqkOJ5T8LpAgxbupzJkeYK5',
+  database: 'homemaker',
+  port: 3306, // หมายเลขพอร์ตที่คุณใช้กับ PlanetScale
+  ssl: {
+    rejectUnauthorized: true,
+  },
+});
+
 app.use(cors())
 app.get('/services', function (req, res) {
   connection.query('SELECT * FROM service WHERE serviceID',
@@ -391,4 +401,7 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 // รันบน port
-app.listen(process.env.PORT || 33);
+const port = process.env.PORT || 3000; // 3000 เป็นพอร์ตเริ่มต้น
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
